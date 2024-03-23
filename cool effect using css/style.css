@@ -1,0 +1,114 @@
+:root {
+  --timing: 500ms;
+  --rotate: 25deg;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  display: grid;
+  place-content: center;
+  min-height: 100vh;
+  perspective: 1000px;
+}
+
+img {
+  max-width: 100%;
+}
+
+.panther {
+  width: 300px;
+  aspect-ratio: 9/12.6;
+  /* outline: 3px solid limegreen; */
+  /* background-image: url("black_panther.png"); */
+
+  position: relative;
+  transform-style: preserve-3d;
+  transition: rotate var(--timing) ease;
+}
+
+.panther:hover {
+  rotate: x var(--rotate);
+}
+
+.panther::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* background: lime; */
+  z-index: 100;
+  background-image: radial-gradient(circle, transparent -100px, black);
+  opacity: 0;
+  transition: opacity var(--timing);
+}
+
+.panther:hover::before {
+  opacity: 1;
+}
+
+.panther::after {
+  content: "";
+  position: absolute;
+  inset: 80% 0.5rem 0.5rem;
+  translate: 0;
+  transform: translateZ(-100px);
+  background: black;
+  filter: blur(1rem);
+  z-index: 1;
+  transition: rotate var(--timing), translate var(--timing);
+}
+
+.panther:hover::after {
+  rotate: x calc((var(--rotate) * -1));
+  translate: 0 40px;
+}
+
+.balck-panther {
+  position: absolute;
+  z-index: 10;
+  object-fit: cover;
+  background-size: cover;
+  object-position: center -20px;
+}
+
+.panther-logo,
+.hover-img {
+  position: absolute;
+}
+
+.panther-logo {
+  z-index: 1000;
+  /* filter: invert(1); */
+  width: 60%;
+  margin-inline: auto;
+  inset: auto 0 2rem;
+  transform: translateY(0rem) translateZ(30px);
+  transition: var(--timing);
+}
+
+.panther:hover .panther-logo {
+  transform: translateY(-2rem) translateZ(30px);
+  rotate: x calc((var(--rotate) * -1));
+}
+
+.hover-img {
+  /* overflow: hidden; */
+  scale: 1;
+  transform-origin: bottom;
+  opacity: 0;
+  z-index: 100;
+  transition: var(--timing);
+  /* object-fit: cover; */
+  /* object-position: center;     */
+}
+
+.panther:hover .hover-img {
+  padding-bottom: 20px;
+  /* margin-bottom: 40px; */
+  /* overflow: hidden; */
+  opacity: 1;
+  transform: translateY(-3rem) translateZ(-28px);
+  rotate: x calc((var(--rotate) * -1));
+}
